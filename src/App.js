@@ -1,5 +1,17 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import rough from "roughjs/bundled/rough.esm";
+import UndoIcon from '@material-ui/icons/Undo';
+import RedoIcon from '@material-ui/icons/Redo';
+import { Button } from '@material-ui/core';
+import SelectAllIcon from '@material-ui/icons/SelectAll';
+import PanToolIcon from '@material-ui/icons/PanTool';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
+import Select from 'react-select';
+import CreateIcon from '@material-ui/icons/Create';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
+
+import "./App.css";
+import { PlayCircleFilledWhite } from "@material-ui/icons";
 
 const generator = rough.generator();
 
@@ -223,30 +235,52 @@ const App = () => {
     setSelectedElement(null);
   };
 
+  var colors=[
+    {
+      value:1,
+      label:"light",
+      color:"white"
+    },
+    {
+      value:2,
+      label:"Dark",
+      colour:"#162447"
+    }
+  ];
+  var[color, setColor] = useState(colors.colour);
+  var themehandler= event=>
+  {
+    setColor(event.colour);
+  }
+
   return (
     <div>
-      <div style={{ position: "fixed" }}>
+    <div className="tool-box">
+      <style>{'body{background-color:'+color+';}'}</style>
+           
+      <div className="Draw">
+        <Select options={colors} onChange={themehandler}></Select>
         <input
           type="radio"
           id="selection"
           checked={tool === "selection"}
           onChange={() => setTool("selection")}
         />
-        <label htmlFor="selection">Selection</label>
+        <label className="selection" htmlFor="selection"><PanToolIcon variant="filled" color="primary" fontSize="large"></PanToolIcon></label>
         <input type="radio" id="line" checked={tool === "line"} onChange={() => setTool("line")} />
-        <label htmlFor="line">Line</label>
+        <label className="Freehand"><CreateIcon variant="filled" color="inherit" fontSize="large"></CreateIcon></label>
+        <label className="line" htmlFor="line"><ShowChartIcon variant="filled" color="inherit" fontSize="large"></ShowChartIcon></label>
         <input
           type="radio"
           id="rectangle"
           checked={tool === "rectangle"}
           onChange={() => setTool("rectangle")}
         />
-        <label htmlFor="rectangle">Rectangle</label>
-      </div>
-      <div style={{ position: "fixed", bottom: 0, padding: 10 }}>
-        <button onClick={undo}>Undo</button>
-        <button onClick={redo}>Redo</button>
-      </div>
+        <label className="rectangle" htmlFor="rectangle"><SelectAllIcon variant="filled" color="inherit" fontSize="large"></SelectAllIcon></label>
+        <label className="colorpicker"><BorderColorIcon variant="filled" color="primary" fontSize="large"></BorderColorIcon></label>
+        <label className="undo" onClick={undo}><UndoIcon variant="filled" color="secondary" fontSize="large"></UndoIcon></label>
+        <label className="redo" onClick={redo}><RedoIcon variant="filled" color="action" fontSize="large"></RedoIcon></label>
+        </div>
       <canvas
         id="canvas"
         width={window.innerWidth}
@@ -257,6 +291,7 @@ const App = () => {
       >
         Canvas
       </canvas>
+    </div>
     </div>
   );
 };
