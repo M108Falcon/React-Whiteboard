@@ -1,0 +1,215 @@
+body{
+    overflow:hidden;
+}
+input[type=radio]
+{
+    -moz-appearance: none;
+}
+.tool-box{
+    position:fixed;
+    height:100%;
+    width:15%;
+    background-color:lightgray;
+    
+    
+}
+.Draw{
+    position: fixed;
+    display:flex;
+    flex-direction: column;
+    border:3px solid black;
+    box-sizing:border-box;
+    top:30%;
+    left:4%;
+    justify-content: center;
+    justify-items: center;
+}
+.selection{
+    
+    padding-left: 11px;
+    padding-top: 7px;
+}
+.selection:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+}
+.selection:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+  }
+.line{
+    padding-left: 12px;
+    padding-top:7px;
+}
+.line:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+}
+.line:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+  }
+.rectangle{
+    padding-left: 13px;
+    padding-top:7px;
+    transform: scale(0.98);
+    
+}
+.rectangle:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+    transition:0.2s all;
+    
+}
+.rectangle:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+}
+.Freehand{
+    padding-left: 13px;
+    padding-top:7px;
+    transform: scale(0.98);
+    
+}
+.Freehand:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+    transition:0.2s all;
+    
+}
+.Freehand:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+}
+.colorpicker{
+    padding-left: 13px;
+    padding-top:11px;
+    transform: scale(0.98);
+    
+}
+.colorpicker:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+    transition:0.2s all;
+    
+}
+.colorpicker:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+}
+.myform{
+    position:fixed;
+    left:2%;
+    top:5%;
+    display:flex;
+    flex-direction: column;
+    overflow:hidden;
+}
+.myform1{
+    padding:7px;
+    
+}
+h3{
+    position:fixed;
+    top:40%;
+    left:30%;
+}
+.browse{
+    position:fixed;
+    top:17%;
+    left:2%;
+    display:flex;
+    flex-direction: column;
+}
+.myimg{
+    padding: 7px;
+}
+.preview{
+    position:fixed;
+    top:28%;
+    left:45%;
+    width:500px;
+    height:350px;
+}
+.undo{
+    padding-left: 13px;
+    padding-top:11px;
+    transform: scale(0.98);
+    
+}
+.undo:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+    transition:0.2s all;
+    
+}
+.undo:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+}
+.redo{
+    padding-left: 13px;
+    padding-top:11px;
+    transform: scale(0.98);
+    
+}
+.redo:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+    transition:0.2s all;
+    
+}
+.redo:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+}
+.add{
+    position: fixed;
+    right:9%;
+    top:4%;
+    transform: scale(0.98);
+    border:1px solid green;
+    border-radius: 50%;
+    padding:5px;
+    
+}
+.add:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+    transition:0.2s all;
+    
+}
+.add:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+}
+.clear{
+    position: fixed;
+    right:3%;
+    top:4%;
+    transform: scale(0.98);
+    border:1px solid green;
+    border-radius: 50%;
+    padding:5px;
+    
+}
+.clear:hover{
+    background-color:rgb(255,235,235);
+    cursor: pointer;
+    transition:0.2s all;
+    
+}
+.clear:active {
+    background-color:rgb(255,235,235);
+    box-shadow: 0 5px gray;
+    transform: translateY(2px);
+}
+

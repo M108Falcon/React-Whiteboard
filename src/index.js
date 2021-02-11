@@ -2,12 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import Message from "./form.js";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+    <Message/>
+   </React.StrictMode>,
   document.getElementById("root")
 );
 
