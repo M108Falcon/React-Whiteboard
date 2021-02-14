@@ -1,23 +1,25 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState, Component } from "react";
 import rough from "roughjs/bundled/rough.esm";
 import UndoIcon from '@material-ui/icons/Undo';
 import RedoIcon from '@material-ui/icons/Redo';
-import { Button } from '@material-ui/core';
+import ReactDOM from 'react-dom';
+import { Button, Drawer } from '@material-ui/core';
 import SelectAllIcon from '@material-ui/icons/SelectAll';
 import PanToolIcon from '@material-ui/icons/PanTool';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import Select from 'react-select';
 import CreateIcon from '@material-ui/icons/Create';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
+import { SketchPicker } from 'react-color';
 
 import "./App.css";
 import { PlayCircleFilledWhite } from "@material-ui/icons";
-
+const mousemovement = false;
 const generator = rough.generator();
 
 const createElement = (id, x1, y1, x2, y2, type) => {
   const roughElement =
-    type === "line"
+    type === "line" && mousemovement === false
       ? generator.line(x1, y1, x2, y2)
       : generator.rectangle(x1, y1, x2 - x1, y2 - y1);
   return { id, x1, y1, x2, y2, type, roughElement };
@@ -36,7 +38,7 @@ const positionWithinElement = (x, y, element) => {
     const bottomRight = nearPoint(x, y, x2, y2, "br");
     const inside = x >= x1 && x <= x2 && y >= y1 && y <= y2 ? "inside" : null;
     return topLeft || topRight || bottomLeft || bottomRight || inside;
-  } else {
+  } else{
     const a = { x: x1, y: y1 };
     const b = { x: x2, y: y2 };
     const c = { x, y };
@@ -136,7 +138,7 @@ const App = () => {
   const [selectedElement, setSelectedElement] = useState(null);
 
   useLayoutEffect(() => {
-    const canvas = document.getElementById("canvas");
+    const canvas = document.getElementById("mycanvas");
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -204,7 +206,7 @@ const App = () => {
       event.target.style.cursor = element ? cursorForPosition(element.position) : "default";
     }
 
-    if (action === "drawing") {
+    if (action === "drawing" ) {
       const index = elements.length - 1;
       const { x1, y1 } = elements[index];
       updateElement(index, x1, y1, clientX, clientY, tool);
@@ -235,11 +237,94 @@ const App = () => {
     setSelectedElement(null);
   };
 
+
+  useEffect(()=>{
+  
+    const canvas = document.getElementById('mycanvas');
+    const ctx = canvas.getContext('2d');
+    window.addEventListener('load', ()=>{
+    resize();
+    document.addEventListener('mousedown', Freehand);
+    document.addEventListener('mouseup', stopFreehand);
+    document.addEventListener("mousemove", draw);
+    window.addEventListener('resize',resize);
+    });
+   
+   
+    function resize(){
+      ctx.canvas.width = window.innerWidth;
+      ctx.canvas.height = window.innerHeight;
+    }
+    let crd ={x:0 , y:0};
+    let startPaint = false;
+    function getPosition(event){
+      crd.x = event.clientX - canvas.offsetLeft;
+      crd.y = event.clientY - canvas.offsetTop;
+    }
+    function Freehand(event){
+      startPaint = true;
+      getPosition(event);
+    }
+    function stopFreehand(){
+      startPaint = false;
+    }
+    function draw(event){
+      if(!startPaint) return;
+      ctx.beginPath();
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = 'red';
+      ctx.moveTo(crd.x,crd.y);
+      getPosition(event);
+      ctx.lineTo(crd.x,crd.y);
+      ctx.stroke();
+    }
+    function erase(){
+      ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)
+    }
+    
+    
+  });
+  var x = "black",
+    y = 2;
+
+    function color(obj) {
+      switch (obj.id) {
+          case "green":
+              x = "green";
+              break;
+          case "blue":
+              x = "blue";
+              break;
+          case "red":
+              x = "red";
+              break;
+          case "yellow":
+              x = "yellow";
+              break;
+          case "orange":
+              x = "orange";
+              break;
+          case "black":
+              x = "black";
+              break;
+          case "white":
+              x = "white";
+              break;
+      }
+      if (x == "white") y = 14;
+      else y = 2;
+  
+  }
+  
+  
+  
+ 
   var colors=[
     {
       value:1,
       label:"light",
-      color:"white"
+      colour:"white"
     },
     {
       value:2,
@@ -255,8 +340,11 @@ const App = () => {
 
   return (
     <div>
+       <div className="erase">Eraser</div>
+    <div  className="box" id="white" onclick="color(this)"></div>
     <div className="tool-box">
-      <style>{'body{background-color:'+color+';}'}</style>
+    <style>{'body{background-color:'+color+';}'}</style>
+    <SketchPicker/>
            
       <div className="Draw">
         <Select options={colors} onChange={themehandler}></Select>
@@ -282,7 +370,7 @@ const App = () => {
         <label className="redo" onClick={redo}><RedoIcon variant="filled" color="action" fontSize="large"></RedoIcon></label>
         </div>
       <canvas
-        id="canvas"
+        id="mycanvas"
         width={window.innerWidth}
         height={window.innerHeight}
         onMouseDown={handleMouseDown}
@@ -291,9 +379,19 @@ const App = () => {
       >
         Canvas
       </canvas>
+
     </div>
     </div>
   );
 };
+class App1 extends React.Component {
+
+  render() {
+    return <SketchPicker />;
+  }
+}
+ReactDOM.render(<App1/>, document.getElementById("root"));
+
 
 export default App;
+

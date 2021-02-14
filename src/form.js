@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear';
 import './App.css';
+import { PlayCircleFilledWhite } from '@material-ui/icons';
 
 function Message(){
         const [ImageFile, setImageFile] = useState()
@@ -38,7 +39,7 @@ function Message(){
     return(
         <div>
             <label className="add"><AddIcon variant="filled" color="primary" fontSize="large"></AddIcon></label>
-            <label className="clear"><ClearIcon variant="filled" color="primary" fontSize="large"></ClearIcon></label>
+            
         <div className="myform">
             <label className="myform1" htmlFor="message">Enter the message</label>
            <textarea id="message" type="text" placeholder="Enter the messages" onChange={messagehandler}/>
